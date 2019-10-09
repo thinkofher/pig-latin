@@ -8,7 +8,7 @@ Building
 
 **pig-latin** tool is completely written in rust with no dependencies at all. Execute below commands to build project on your unix machine:
 
-    $ git clone https://github.com/thinkofher/unixify.git
+    $ git clone https://github.com/thinkofher/pig-latin.git
     $ cd pig-latin
     $ cargo -q build --release
 
