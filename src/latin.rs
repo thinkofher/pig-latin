@@ -10,33 +10,11 @@ pub enum Letter {
 
 impl Letter {
     pub fn new(c: char) -> Letter {
-        if is_vowel(c) {
-            Letter::Vowel(c)
-        } else {
-            Letter::Consonant(c)
+        match is_vowel(c) {
+            true => Letter::Vowel(c),
+            false => Letter::Consonant(c),
         }
     }
-}
-
-fn is_vowel(c: char) -> bool {
-    VOWELS.contains(c.to_lowercase().next().unwrap())
-}
-
-fn filter_chars(s: String, undesirable: &str) -> String {
-    s.chars().filter(|&c| !undesirable.contains(c)).collect()
-}
-
-fn filter_illegal_chars(s: String) -> String {
-    filter_chars(s, ILLEGAL_CHARS)
-}
-
-pub fn transcript(text: String) -> String {
-    text.split_whitespace()
-        .map(|s| s.to_string())
-        .map(|s| filter_illegal_chars(s))
-        .map(|s| s.pig_latin())
-        .collect::<Vec<String>>()
-        .join(" ")
 }
 
 pub trait PigLatin {
@@ -66,4 +44,25 @@ impl PigLatin for String {
     fn rest(&self) -> String {
         self.to_lowercase().chars().skip(1).collect()
     }
+}
+
+pub fn transcript(text: String) -> String {
+    text.split_whitespace()
+        .map(|s| s.to_string())
+        .map(|s| filter_illegal_chars(s))
+        .map(|s| s.pig_latin())
+        .collect::<Vec<String>>()
+        .join(" ")
+}
+
+fn is_vowel(c: char) -> bool {
+    VOWELS.contains(c.to_lowercase().next().unwrap())
+}
+
+fn filter_chars(s: String, undesirable: &str) -> String {
+    s.chars().filter(|&c| !undesirable.contains(c)).collect()
+}
+
+fn filter_illegal_chars(s: String) -> String {
+    filter_chars(s, ILLEGAL_CHARS)
 }
